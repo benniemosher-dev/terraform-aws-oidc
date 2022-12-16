@@ -1,16 +1,8 @@
-# terraform-module
+# terraform-aws-oidc
 
-![CI Terraform](https://github.com/benniemosher-dev/terraform-module/actions/workflows/ci-terraform.yml/badge.svg)
+![CI Terraform](https://github.com/benniemosher-dev/terraform-aws-oidc/actions/workflows/ci-terraform.yml/badge.svg)
 
-🧱 A Terraform module template repo 🧱
-
-## ✅ TODO:
-
-Things to change when first creating a module:
-
-- [ ] In `README.md` change `terraform-module` to the name of this module (i.e. `terraform-cloudflare-record`)
-- [ ] In `.github/workflows/ci-terraform.yml` delete lines 13-14 enabling cost
-- [ ] In `README.md` delete the [TODO](README.md#todo) section
+🪪 A TF module for AWS IAM OIDC identity providers. 🪪
 
 ## 📜 Usage:
 
@@ -70,10 +62,13 @@ Things to change when first creating a module:
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.3 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.40 |
 
 ## Providers
 
-No providers.
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.46.0 |
 
 ## Modules
 
@@ -81,13 +76,26 @@ No modules.
 
 ## Resources
 
-No resources.
+| Name | Type |
+|------|------|
+| [aws_iam_openid_connect_provider.oidc-provider](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_openid_connect_provider) | resource |
+| [aws_iam_role.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_iam_role_policy_attachment.administrator-access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_role_policy_attachment.custom](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_role_policy_attachment.read-only](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_openid_connect_provider.oidc-provider](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_openid_connect_provider) | data source |
+| [aws_iam_policy_document.assume-role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_partition.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) | data source |
 
 ## Inputs
 
-No inputs.
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_config"></a> [config](#input\_config) | The config for creating this module. | <pre>object({<br>    attach-admin-policy           = optional(bool, false)<br>    attach-read-only-policy       = optional(bool, true)<br>    create-oidc-provider          = optional(bool, true)<br>    force-detach-policies         = optional(bool, false)<br>    github-repositories           = optional(list(string), [])<br>    github-organisation           = string<br>    oidc-provider-thumbprint-list = optional(list(string), [])<br>    oidc-provider-url             = optional(string, null)<br>    iam-role-name                 = optional(string, null)<br>    iam-role-path                 = optional(string, "/")<br>    iam-role-policy-arns          = optional(list(string), [])<br>    max-session-duration          = optional(number, 3600)<br>    oidc-provider-client-list     = optional(list(string), [])<br>    name                          = string<br>  })</pre> | n/a | yes |
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_iam-role-name"></a> [iam-role-name](#output\_iam-role-name) | Name of the IAM role. |
 <!-- END_TF_DOCS -->
